@@ -24,6 +24,7 @@
     <div class="hero text-center">
       <h1>UFO Sightings</h1>
       <p>The Truth is Out There</p>
+      <h2 id = "error_message" style="color: red;"></h2>
     </div>
     <div class="container">
       <div class="row margin-top-50">
@@ -32,12 +33,12 @@
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
               <div class="panel-body">
-                <form>
+                <form id = ufo_form>
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
                         <label for="date">Enter a Date</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                        <input class="form-control" id="datetime" type="text" placeholder="1/13/2011">
                       </li>
                     </ul>
                   </div>
@@ -61,7 +62,7 @@
                   <th class="table-head">Comments</th>
                 </tr>
               </thead>
-              <tbody></tbody>
+              <tbody id="table_body"></tbody>
             </table>
           </div>
         </div>
