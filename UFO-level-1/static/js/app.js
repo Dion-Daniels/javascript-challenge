@@ -4,14 +4,8 @@ var tableData = data;
 var button = d3.select("#filter-btn");
 // Select the form
 var form = d3.select("#ufo_form");
-
-
+// select and create table with the ufo data
 var tbody = d3.select("#table_body");
-//var row = tbody.append("tr");
-//row.append("td").text(tableData[1]);
-
-
-
   tableData.forEach((ufo_sighting) => {
     var row = tbody.append("tr");
     Object.entries(ufo_sighting).forEach(([key, value]) => {
@@ -19,34 +13,30 @@ var tbody = d3.select("#table_body");
     cell.text(value);
         });
     });
-    
 
-
-// YOUR CODE HERE!
-//button.on("click", runEnter);
+//methods for running below function
 form.on("submit",runEnter);
 button.on("click",runEnter);
 
-//d3.select("td").remove();
+//create function for filtering data
 function runEnter() {
-
+    //prevent reload
     d3.event.preventDefault();
+    //delete table that is currently in tbody and clear error message
     d3.select("#table_body").selectAll("*").remove();
     d3.select("#error_message").text("");
 
-
-
-    
-    
+    //save input elements for each field filled in
     var inputElement = d3.select("#datetime");
-    var inputValue = inputElement.property("value");
+    var inputValue = inputElement.property("value").toLowerCase();
     console.log(inputValue);
     console.log(tableData);
 
-    var filteredData = tableData.filter(test => test.datetime === inputValue);
-
+    //Filter data by inputvalue
+    var filteredData = tableData.filter(test => test.datetime.includes(inputValue));
     console.log(filteredData);
 
+    //display table of filtered data
     filteredData.forEach((ufo_sighting) => {
         var row = tbody.append("tr");
         Object.entries(ufo_sighting).forEach(([key, value]) => {
@@ -55,6 +45,7 @@ function runEnter() {
             });
         });
     
+    // return to base table if no date is selected
     if (inputValue === ""){
         d3.select("#error_message").text("");
         tableData.forEach((ufo_sighting) => {
@@ -65,6 +56,7 @@ function runEnter() {
                 });
             });
     }
+    // go back to initial data set displaying error message at the top of the page
     else if (filteredData.length === 0){
         d3.select("#error_message").text("They Have Hidden The Data We Seek");
         tableData.forEach((ufo_sighting) => {
@@ -75,9 +67,4 @@ function runEnter() {
                 });
             });
     }
-
-
-
-
-
 };
